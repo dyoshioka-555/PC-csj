@@ -126,11 +126,11 @@ function setSlide() {
 
 function setAudio() {
     document.getElementById("audio_spk").innerHTML = 'Voice 1:<br>'
-        + '<audio src="' + file_list[n][0]
+        + '<audio id="audio1" src="' + file_list[n][0]
         + '" controls preload="auto">'
         + '</audio>';
     document.getElementById("audio_wrt").innerHTML = 'Voice 2:<br>'
-        + '<audio src="' + file_list[n][1]
+        + '<audio  id="audio2" src="' + file_list[n][1]
         + '" controls preload="auto">'
         + '</audio>';
 }
@@ -143,8 +143,8 @@ function init() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio_spk");
-    var audio2 = document.getElementById("audio_spk");
+    var audio1 = document.getElementById("audio1");
+    var audio2 = document.getElementById("audio2");
     audio1.onended = function () {
         // 再生終了後に再生ボタンを無効化
         audio1.controls = false;
@@ -314,8 +314,8 @@ function next() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio_spk");
-    var audio2 = document.getElementById("audio_spk");
+    var audio1 = document.getElementById("audio1");
+    var audio2 = document.getElementById("audio2");
     audio1.onended = function () {
         // 再生終了後に再生ボタンを無効化
         audio1.controls = false;
@@ -333,8 +333,8 @@ function prev() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio_spk");
-    var audio2 = document.getElementById("audio_spk");
+    var audio1 = document.getElementById("audio1");
+    var audio2 = document.getElementById("audio2");
     audio1.onended = function () {
         // 再生終了後に再生ボタンを無効化
         audio1.controls = false;
