@@ -1,38 +1,34 @@
-import os
-import shutil
+import itertools
+from random import shuffle
 
-wav_root = "wav/"
-METHOD = ["spoken", "written", "slide"]
-SPK = ["tts"]
-N_SET = 2
-N_DATA_PER_SPK = 5
+# 文字列形式でテキストと方法の組み合わせを生成
+texts = [f"000{i+1}" for i in range(8)]  # 8種類のテキスト
+methods = ["A", "B", "C"]  # 3種類の方法
+combinations = list(itertools.permutations(methods, 2))  # 順序を考慮した組み合わせ
 
-for n_set in range(N_SET):
-    file_paths = []
-    for method in METHOD:
-        os.makedirs(f"wav/set{n_set + 1}/{method}", exist_ok=True)
-        if method != "slide":
-            files = []
-            for spk in SPK:
-                for n_data in range(N_DATA_PER_SPK):
-                    data_number = n_data
-                    file_path = f"{method}/{spk}_{data_number:0>4}.wav"
-                    new_file_path = shutil.copyfile(
-                        wav_root + file_path, f"wav/set{n_set + 1}/" + file_path
-                    )
-                    files += [new_file_path]
-            with open(f"wav/set{n_set + 1}/{method}.list", mode="w") as f:
-                for file_path in sorted(files):
-                    f.write(file_path + "\n")
-        else:
-            files = []
-            for n_data in range(N_DATA_PER_SPK):
-                data_number = n_data
-                file_path = f"{method}/slide_{data_number:0>4}.jpg"
-                new_file_path = shutil.copyfile(
-                    wav_root + file_path, f"wav/set{n_set + 1}/" + file_path
-                )
-                files += [new_file_path]
-            with open(f"wav/set{n_set + 1}/{method}.list", mode="w") as f:
-                for file_path in sorted(files):
-                    f.write(file_path + "\n")
+set = [[], []]
+set[0] = {"a": [], "b": []}
+set[1] = {"a": [], "b": []}
+
+set1_a, set1_b, set2_a, set2_b = [], [], [], []
+
+# 各テキストに対して異なる順序でAB、AC、BCのペアを作成
+for text in texts:
+    pairs = [("A", "B"), ("A", "C"), ("B", "C")]
+    shuffle(pairs)  # ペアの順序をシャッフル
+
+    # シャッフルされたペアをセット1に追加
+    for pair in pairs:
+        set[0]["a"].append(f"wav/set1/{pair[0]}/csj_{text}.wav")
+        set[0]["b"].append(f"wav/set1/{pair[1]}/csj_{text}.wav")
+
+    shuffle(pairs)  # 再度シャッフルしてセット2に異なる順序で追加
+    for pair in pairs:
+        set[1]["a"].append(f"wav/set2/{pair[1]}/csj_{text}.wav")  # 順番を逆にして追加
+        set[1]["b"].append(f"wav/set2/{pair[0]}/csj_{text}.wav")
+
+for i in [1, 2]:
+    for x in ["a", "b"]:
+        with open(f"wav/set{i}/{x}.list", mode="w") as f:
+            for file_path in set[i - 1][f"{x}"]:
+                f.write(file_path + "\n")

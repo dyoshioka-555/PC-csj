@@ -50,19 +50,17 @@ function start_experiment() {
     Display();
 
     // read filepath
-    var method1_list = wav_dir + "set" + set_num + "/spoken.list";
-    var method2_list = wav_dir + "set" + set_num + "/written.list";
-    var slide_list = wav_dir + "set" + set_num + "/slide.list";
+    var method1_list = wav_dir + "set" + set_num + "/a.list";
+    var method2_list = wav_dir + "set" + set_num + "/b.list";
     //var method3_list = wav_dir + "set" + set_num + "/qppwg.list";
     //var method4_list = wav_dir + "set" + set_num + "/usfgan.list";
     //natural = loadText(natural_list);
     method1 = loadText(method1_list);
     method2 = loadText(method2_list);
-    slides = loadText(slide_list);
     //method3 = loadText(method3_list);
     //method4 = loadText(method4_list);
     outfile = name + "_set" + set_num + ".csv";
-    file_list = makeFileList(set_num);
+    file_list = makeFileList();
     console.log(file_list);
     scores1 = (new Array(file_list.length)).fill(0);
     scores2 = (new Array(file_list.length)).fill(0);
@@ -90,26 +88,8 @@ function loadText(filename) {
 }
 
 // make file list
-function makeFileList(set_num) {
-    var ori_files = method1.zip(method2, slides);
-    let files = [];
-    for (var i = 0; i < method1.length; i++) {
-        if (set_num % 2) {
-            if (i % 2) {
-                files[i] = ori_files[i];
-            } else {
-                let a = [ori_files[i][1], ori_files[i][0], ori_files[i][2]];
-                files[i] = a;
-            }
-        } else {
-            if (i % 2) {
-                let a = [ori_files[i][1], ori_files[i][0], ori_files[i][2]];
-                files[i] = a;
-            } else {
-                files[i] = ori_files[i];
-            }
-        }
-    }
+function makeFileList() {
+    var files = method1.zip(method2);
     files.shuffle();
     return files;
 }
@@ -364,7 +344,6 @@ var method2;
 //var method3;
 //var method4;
 var outfile;
-var slides;
 var file_list;
 var scores1;
 var scores2;
