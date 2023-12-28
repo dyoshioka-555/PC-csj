@@ -123,16 +123,6 @@ function init() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio1");
-    var audio2 = document.getElementById("audio2");
-    audio1.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio1.controls = false;
-    };
-    audio2.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio2.controls = false;
-    };
 }
 function evalCheck1() {
     const c = scores1[n];
@@ -294,16 +284,6 @@ function next() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio1");
-    var audio2 = document.getElementById("audio2");
-    audio1.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio1.controls = false;
-    };
-    audio2.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio2.controls = false;
-    };
 }
 
 function prev() {
@@ -313,16 +293,6 @@ function prev() {
     evalCheck2();
     evalCheck3();
     setButton();
-    var audio1 = document.getElementById("audio1");
-    var audio2 = document.getElementById("audio2");
-    audio1.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio1.controls = false;
-    };
-    audio2.onended = function () {
-        // 再生終了後に再生ボタンを無効化
-        audio2.controls = false;
-    };
 }
 
 function finish() {

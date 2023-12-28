@@ -2,7 +2,7 @@ import itertools
 from random import shuffle
 
 # 文字列形式でテキストと方法の組み合わせを生成
-texts = [f"000{i+1}" for i in range(8)]  # 8種類のテキスト
+texts = [f"000{i}" for i in range(8)]  # 8種類のテキスト
 methods = ["A", "B", "C"]  # 3種類の方法
 combinations = list(itertools.permutations(methods, 2))  # 順序を考慮した組み合わせ
 
