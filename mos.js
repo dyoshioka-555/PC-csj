@@ -105,6 +105,7 @@ function setSlide() {
 }
 
 function setAudio() {
+    document.getElementById("page").textContent = "" + (n + 1) + "/" + scores1.length;
     document.getElementById("audio_spk").innerHTML = 'Voice 1:<br>'
         + '<audio id="audio1" src="' + file_list[n][0]
         + '" controls preload="auto">'
